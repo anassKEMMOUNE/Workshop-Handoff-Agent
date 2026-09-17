@@ -44,20 +44,20 @@ export default function SimulateEvent({ jobs, onInjected }: { jobs: any[], onInj
   };
 
   return (
-    <div className="bg-gray-800 text-gray-100 p-4 rounded-xl shadow-lg border-2 border-dashed border-gray-600 h-full flex flex-col justify-between">
+    <div className="bg-white text-gray-900 p-4 rounded-xl shadow-sm border-2 border-dashed border-gray-300 h-full flex flex-col justify-between">
       <div>
         <div className="mb-4">
-          <h2 className="text-lg font-bold text-gray-100 flex items-center gap-2">
-            <span className="text-purple-400">⚡</span> Inject Simulation Event
+          <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <span className="text-blue-500">📥</span> Ereignis-Simulator
           </h2>
-          <p className="text-sm text-gray-400">Simulate real-world workshop events to test the AI agent's detection.</p>
+          <p className="text-sm text-gray-500">Simulieren Sie reale Ereignisse (Simulation).</p>
         </div>
         
         <div className="flex flex-col gap-3">
           <select 
             value={jobId} 
             onChange={e => setJobId(e.target.value)}
-            className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
+            className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 focus:outline-none focus:border-[#e3000f]"
           >
             <option value="">-- Select Active Job --</option>
             {jobs.map(j => (
@@ -68,7 +68,7 @@ export default function SimulateEvent({ jobs, onInjected }: { jobs: any[], onInj
           <select 
             value={eventType} 
             onChange={handleTypeChange}
-            className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
+            className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 focus:outline-none focus:border-[#e3000f]"
           >
             {eventTypes.map(ev => (
               <option key={ev.type} value={ev.type}>{ev.type}</option>
@@ -80,20 +80,20 @@ export default function SimulateEvent({ jobs, onInjected }: { jobs: any[], onInj
             value={desc} 
             onChange={e => setDesc(e.target.value)}
             placeholder="Event details..."
-            className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
+            className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 focus:outline-none focus:border-[#e3000f]"
           />
         </div>
       </div>
       
-      <div className="mt-4 pt-4 border-t border-gray-700">
+      <div className="mt-4 pt-4 border-t border-gray-200">
         <button 
           onClick={handleInject}
           disabled={loading || !jobId}
-          className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-bold py-2 px-4 rounded transition-colors shadow-lg"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold py-2 px-4 rounded transition-colors shadow-md"
         >
-          {loading ? 'Injecting...' : 'Fire Event'}
+          {loading ? 'Integrieren...' : 'Event Simulieren'}
         </button>
-        {status && <div className={`mt-2 text-sm text-center ${status.includes('Success') ? 'text-green-400' : 'text-yellow-400'}`}>{status}</div>}
+        {status && <div className={`mt-2 text-sm text-center ${status.includes('Success') ? 'text-green-600' : 'text-red-500'}`}>{status}</div>}
       </div>
     </div>
   );

@@ -58,27 +58,30 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col text-gray-100 font-sans">
-      {/* Header */}
-      <header className="bg-gray-950 border-b border-gray-800 text-white py-4 px-6 flex justify-between items-center shadow-lg">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-blue-400">Workshop Handoff Agent</h1>
-          <p className="text-sm text-gray-400">AI-powered bottleneck detection for auto workshops</p>
+    <div className="min-h-screen bg-gray-50 flex flex-col text-gray-900 font-sans">
+      {/* Autohaus Frisch Header */}
+      <header className="bg-white border-b border-gray-200 text-gray-900 py-4 px-6 flex justify-between items-center shadow-sm">
+        <div className="flex items-center gap-6">
+          <img src="https://www.autohaus-frisch.de/assets/images/9/autohaus-frisch-logo-99e6257a.jpg" alt="Autohaus Frisch" className="h-12" />
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">AI Handoff System</h1>
+            <p className="text-sm text-gray-500">Automated Workshop Operations</p>
+          </div>
         </div>
         <div className="flex gap-3">
           <button 
             onClick={handleReset}
             disabled={resetting || analyzing}
-            className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white px-4 py-2 rounded font-medium transition-colors border border-red-500"
+            className="bg-gray-200 hover:bg-gray-300 disabled:opacity-50 text-gray-700 px-4 py-2 rounded font-medium transition-colors border border-gray-300"
           >
             {resetting ? 'Resetting...' : 'Reset Simulation'}
           </button>
           <button 
             onClick={handleRunAnalysis}
             disabled={analyzing || resetting}
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded font-medium transition-colors border border-blue-500 flex items-center gap-2"
+            className="bg-[#e3000f] hover:bg-red-700 disabled:opacity-50 text-white px-4 py-2 rounded font-medium transition-colors shadow-md flex items-center gap-2"
           >
-            {analyzing ? 'Analyzing...' : '🧠 Run Agent Analysis'}
+            {analyzing ? 'Analyzing...' : '🧠 Run AI Auto-Resolution'}
           </button>
         </div>
       </header>
@@ -86,31 +89,31 @@ export default function Dashboard() {
       <main className="flex-1 p-6 flex flex-col gap-8 max-w-7xl mx-auto w-full">
         {/* Active Bays Section */}
         <section>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-200">
-            <span className="text-yellow-500">🔧</span> Active Workshop Bays
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
+            <span className="text-gray-500">🔧</span> Aktive Werkstattbuchten
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {jobs.length === 0 ? (
-              <div className="col-span-full text-gray-400 bg-gray-800 p-4 rounded border border-gray-700">No active jobs found.</div>
+              <div className="col-span-full text-gray-500 bg-white p-4 rounded border border-gray-200">No active jobs found.</div>
             ) : (
               jobs.map(job => <BayCard key={job.id} job={job} />)
             )}
           </div>
         </section>
 
-        {/* AI Recommendations */}
+        {/* AI Actions */}
         <section>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-200">
-            <span className="text-blue-400">💡</span> AI Agent Recommendations
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
+            <span className="text-[#e3000f]">⚡</span> Automatisierte KI-Aktionen (Auto-Resolved)
           </h2>
           {recommendations.length === 0 ? (
-            <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl text-center text-gray-400 shadow-md">
-              No bottlenecks detected. Run the Agent Analysis to scan for issues.
+            <div className="bg-white border border-gray-200 p-6 rounded-xl text-center text-gray-500 shadow-sm">
+              Keine Engpässe erkannt. (No bottlenecks detected). Run the AI Auto-Resolution.
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {recommendations.map(rec => (
-                <RecommendationCard key={rec.id} recommendation={rec} onUpdate={loadData} />
+                <RecommendationCard key={rec.id} recommendation={rec} />
               ))}
             </div>
           )}

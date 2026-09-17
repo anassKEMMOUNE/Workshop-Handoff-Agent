@@ -104,34 +104,63 @@ def propose_actions(state: AgentState) -> AgentState:
             
         stall_type = stall.get('type')
         action = f"Review and unblock {stall_type}"
+        new_stage = None
+        
         if stall_type == "part-arrived":
-            action = "Advance job to 'repair in progress' as parts are received."
+            action = "Automated: Advanced job to 'repair in progress' as parts were received."
+            new_stage = "repair in progress"
         elif stall_type == "approval-unseen":
-            action = "Advance job to 'repair in progress' as customer approval event was found."
+            action = "Automated: Advanced job to 'repair in progress' as customer approval event was found."
+            new_stage = "repair in progress"
         elif stall_type == "equipment-blocked":
-            action = "Investigate offline equipment."
+            action = "Automated: Flagged offline equipment for investigation."
             
         rec = {
             "job_id": job_id,
             "proposed_action": action,
-            "evidence": stall.get('reason', 'Analyzed by agent'),
-            "assigned_to": job.get('next_owner', 'manager')
+            "evidence": stall.get('reason', 'Analyzed by AI Agent'),
+            "assigned_to": "AI Agent",
+            "new_stage": new_stage,
+            "previous_stage": job.get("stage")
         }
         recommendations.append(rec)
         
     return {"recommendations": recommendations}
 
-def write_recommendations(state: AgentState) -> AgentState:
-    """Write recommendations to the database."""
+def execute_actions(state: AgentState) -> AgentState:
+    """Execute the actions automatically."""
     recommendations = state.get("recommendations", [])
-    saved_recs = []
+    executed_actions = []
     
     for rec in recommendations:
-        saved = db.create_recommendation(rec)
-        if saved:
-            saved_recs.append(saved)
+        # 1. Write the recommendation as auto-approved (so we still track AI intent if we want)
+        rec_to_save = {
+            "job_id": rec["job_id"],
+            "proposed_action": rec["proposed_action"],
+            "evidence": rec["evidence"],
+            "assigned_to": rec["assigned_to"],
+            "status": "approved"
+        }
+        db.create_recommendation(rec_to_save)
+        
+        # 2. Automatically update the job if there's a new stage
+        if rec.get("new_stage"):
+            db.update_job_stage(rec["job_id"], rec["new_stage"])
             
-    return {"recommendations": saved_recs}
+            # 3. Create Action Log
+            log_entry = {
+                "job_id": rec["job_id"],
+                "action": "AI Auto-Resolution: " + rec["proposed_action"],
+                "performed_by": "Autohaus Frisch AI",
+                "evidence_ref": rec["evidence"],
+                "previous_state": rec["previous_stage"],
+                "new_state": rec["new_stage"]
+            }
+            db.create_action_log(log_entry)
+            
+        executed_actions.append(rec)
+            
+    return {"recommendations": executed_actions}
 
 # Build the graph
 workflow = StateGraph(AgentState)
@@ -139,13 +168,13 @@ workflow = StateGraph(AgentState)
 workflow.add_node("load_state", load_state)
 workflow.add_node("detect_stalls", detect_stalls)
 workflow.add_node("propose_actions", propose_actions)
-workflow.add_node("write_recommendations", write_recommendations)
+workflow.add_node("execute_actions", execute_actions)
 
 workflow.set_entry_point("load_state")
 workflow.add_edge("load_state", "detect_stalls")
 workflow.add_edge("detect_stalls", "propose_actions")
-workflow.add_edge("propose_actions", "write_recommendations")
-workflow.add_edge("write_recommendations", END)
+workflow.add_edge("propose_actions", "execute_actions")
+workflow.add_edge("execute_actions", END)
 
 app = workflow.compile()
 
