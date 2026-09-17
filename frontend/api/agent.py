@@ -8,7 +8,9 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 import database as db
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+# Load env vars (for local development)
+env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+load_dotenv(env_path)
 
 llm = ChatOpenAI(
     model="deepseek-chat",
