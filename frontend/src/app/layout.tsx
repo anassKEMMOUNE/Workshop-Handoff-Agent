@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Workshop Handoff Agent",
-  description: "Operations dashboard for Workshop Handoff Agent",
+  title: "AutoSync AI | Autohaus Frisch",
+  description: "Synchronizing physical workshops with digital operations",
 };
 
 export default function RootLayout({

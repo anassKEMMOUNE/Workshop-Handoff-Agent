@@ -1,6 +1,6 @@
 # Prototype Handoff
 
-Case: **C02 - Workshop Handoff Agent**. Candidate/team: **Anass Kemmoune**. Prototype location: **[GitHub Repository](https://github.com/anassKEMMOUNE/Workshop-Handoff-Agent)**.
+Case: **C02 - AutoSync AI**. Candidate/team: **Anass Kemmoune**. Prototype location: **[GitHub Repository](https://github.com/anassKEMMOUNE/Workshop-Handoff-Agent)**.
 
 ## The problem we validated
 

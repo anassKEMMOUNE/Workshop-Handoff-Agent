@@ -64,8 +64,8 @@ export default function Dashboard() {
         <div className="flex items-center gap-6">
           <img src="https://www.autohaus-frisch.de/assets/images/9/autohaus-frisch-logo-99e6257a.jpg" alt="Autohaus Frisch" className="h-12" />
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">AI Handoff System</h1>
-            <p className="text-sm text-gray-500">Automated Workshop Operations</p>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">AutoSync AI</h1>
+            <p className="text-sm text-gray-500">Synchronizing physical workshops with digital operations <span className="text-[10px] ml-1">(Digitale Werkstattsynchronisation)</span></p>
           </div>
         </div>
         <div className="flex gap-3">

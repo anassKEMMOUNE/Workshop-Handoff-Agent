@@ -1,6 +1,6 @@
-# Workshop Handoff Agent
+# AutoSync AI
 
-The **Workshop Handoff Agent** is an intelligent operational assistant designed to solve the "busy but stuck" problem in automotive repair workshops. 
+The **AutoSync AI** is an intelligent operational assistant designed to solve the "busy but stuck" problem in automotive repair workshops. 
 
 In a busy workshop, everyone is working hard, but vehicles often sit idle due to simple miscommunications—a part arrives but the mechanic isn't notified, or a customer approves a repair but the service adviser misses the email. This platform acts as an invisible manager that spots these bottlenecks and automatically proposes actions to unblock them.
 
