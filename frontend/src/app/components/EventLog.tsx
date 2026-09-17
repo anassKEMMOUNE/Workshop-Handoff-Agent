@@ -22,24 +22,25 @@ export default function EventLog() {
       <div className="mb-4">
         <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
           <span className="text-[#e3000f]">📡</span> System Event Stream
+          <span className="text-xs text-gray-400 font-normal ml-1">(Systemereignis-Stream)</span>
         </h2>
-        <p className="text-sm text-gray-500">Rohdaten / Echtzeit-Ereignisse (Real-time events).</p>
+        <p className="text-sm text-gray-500">Real-time raw events ingested by the workshop. <span className="text-[10px] block">(Echtzeit-Rohdaten, die von der Werkstatt erfasst werden.)</span></p>
       </div>
       
       <div className="overflow-auto max-h-[300px] border border-gray-200 rounded bg-gray-50">
         <table className="w-full text-left text-sm">
           <thead className="bg-gray-100 sticky top-0">
             <tr>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Zeit</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Job</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Event Typ</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Details</th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Time <span className="text-[10px] font-normal block">(Zeit)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Job <span className="text-[10px] font-normal block">(Auftrag)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Event Type <span className="text-[10px] font-normal block">(Ereignistyp)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Details <span className="text-[10px] font-normal block">(Details)</span></th>
             </tr>
           </thead>
           <tbody>
             {events.length === 0 ? (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-400">Keine Events.</td>
+                <td colSpan={4} className="p-4 text-center text-gray-400">No events found. <span className="text-xs block mt-1">(Keine Events.)</span></td>
               </tr>
             ) : (
               events.map((ev, i) => (

@@ -89,12 +89,13 @@ export default function Dashboard() {
       <main className="flex-1 p-6 flex flex-col gap-8 max-w-7xl mx-auto w-full">
         {/* Active Bays Section */}
         <section>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-            <span className="text-gray-500">🔧</span> Aktive Werkstattbuchten
+          <h2 className="text-xl font-bold mb-4 flex items-baseline gap-2 text-gray-800">
+            <span className="text-gray-500">🔧</span> Active Workshop Bays
+            <span className="text-xs text-gray-400 font-normal tracking-wide uppercase ml-2">(Aktive Werkstattbuchten)</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {jobs.length === 0 ? (
-              <div className="col-span-full text-gray-500 bg-white p-4 rounded border border-gray-200">No active jobs found.</div>
+              <div className="col-span-full text-gray-500 bg-white p-4 rounded border border-gray-200">No active jobs found. <span className="text-xs text-gray-400 block mt-1">(Keine aktiven Aufträge gefunden.)</span></div>
             ) : (
               jobs.map(job => <BayCard key={job.id} job={job} />)
             )}
@@ -103,12 +104,14 @@ export default function Dashboard() {
 
         {/* AI Actions */}
         <section>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-            <span className="text-[#e3000f]">⚡</span> Automatisierte KI-Aktionen (Auto-Resolved)
+          <h2 className="text-xl font-bold mb-4 flex items-baseline gap-2 text-gray-800">
+            <span className="text-[#e3000f]">⚡</span> Automated AI Actions
+            <span className="text-xs text-gray-400 font-normal tracking-wide uppercase ml-2">(Automatisierte KI-Aktionen)</span>
           </h2>
           {recommendations.length === 0 ? (
             <div className="bg-white border border-gray-200 p-6 rounded-xl text-center text-gray-500 shadow-sm">
-              Keine Engpässe erkannt. (No bottlenecks detected). Run the AI Auto-Resolution.
+              No bottlenecks detected. Run the AI Auto-Resolution.
+              <span className="text-xs text-gray-400 block mt-2">(Keine Engpässe erkannt. Führen Sie die KI-Auto-Lösung aus.)</span>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -122,7 +125,7 @@ export default function Dashboard() {
         {/* Bottom Section: Simulation & Audit Trail */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1">
-            <SimulateEvent jobs={jobs} onInjected={loadData} />
+            <SimulateEvent jobs={jobs} onInjected={async () => { await loadData(); await handleRunAnalysis(); }} />
           </div>
           <div className="lg:col-span-1">
             <EventLog />

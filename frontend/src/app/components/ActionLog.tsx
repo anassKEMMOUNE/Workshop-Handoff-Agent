@@ -21,25 +21,26 @@ export default function ActionLog() {
     <div className="bg-white text-gray-900 p-4 rounded-xl shadow-sm border border-gray-200 h-full">
       <div className="mb-4">
         <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <span className="text-[#e3000f]">🛡️</span> KI-Aktionsprotokoll (Audit Trail)
+          <span className="text-[#e3000f]">🛡️</span> AI Action Audit Trail
+          <span className="text-xs text-gray-400 font-normal ml-1">(KI-Aktionsprotokoll)</span>
         </h2>
-        <p className="text-sm text-gray-500">Record of all stage changes automatically executed by the AI.</p>
+        <p className="text-sm text-gray-500">Record of all stage changes automatically executed by the AI. <span className="text-[10px] block">(Aufzeichnung aller von der KI automatisch ausgeführten Statusänderungen.)</span></p>
       </div>
 
       <div className="overflow-auto max-h-[300px] border border-gray-200 rounded bg-gray-50">
         <table className="w-full text-left text-sm">
           <thead className="bg-gray-100 sticky top-0">
             <tr>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Time</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Job</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Action</th>
-              <th className="p-2 border-b border-gray-200 text-gray-600">Transition</th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Time <span className="text-[10px] font-normal block">(Zeit)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Job <span className="text-[10px] font-normal block">(Auftrag)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Action <span className="text-[10px] font-normal block">(Aktion)</span></th>
+              <th className="p-2 border-b border-gray-200 text-gray-600">Transition <span className="text-[10px] font-normal block">(Übergang)</span></th>
             </tr>
           </thead>
           <tbody>
             {logs.length === 0 ? (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-400">No actions logged yet.</td>
+                <td colSpan={4} className="p-4 text-center text-gray-400">No actions logged yet. <span className="text-xs block mt-1">(Bisher keine Aktionen protokolliert.)</span></td>
               </tr>
             ) : (
               logs.map((log, i) => (

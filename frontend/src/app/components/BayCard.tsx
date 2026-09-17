@@ -16,7 +16,7 @@ export default function BayCard({ job }: { job: any }) {
   } else if (job.device_state === 'offline') {
     statusColor = 'border-l-4 border-yellow-500 bg-white';
     badgeColor = 'bg-yellow-100 text-yellow-800';
-    statusMsg = 'Achtung: Equipment offline';
+    statusMsg = 'Warning: Equipment offline (Achtung: Equipment offline)';
     icon = '⚠️';
   } else if (
     (job.stage === 'awaiting parts' && job.part_receipt === 'received') ||
@@ -25,7 +25,7 @@ export default function BayCard({ job }: { job: any }) {
     statusColor = 'border-l-4 border-[#e3000f] bg-white';
     badgeColor = 'bg-red-100 text-[#e3000f]';
     icon = '🛑';
-    statusMsg = 'Widerspruch: Automatisierung erforderlich';
+    statusMsg = 'Contradiction Detected (Widerspruch erkannt)';
   }
 
   return (
@@ -41,20 +41,20 @@ export default function BayCard({ job }: { job: any }) {
         </div>
         
         <div className="text-sm text-gray-600 mt-4 space-y-2">
-          <div className="flex justify-between border-b border-gray-100 pb-1">
-            <span className="text-gray-400">Nächster Bearbeiter:</span>
-            <span className="font-medium text-gray-800 capitalize">{job.next_owner}</span>
+          <div className="flex justify-between items-center border-b border-gray-100 pb-1">
+            <span className="text-gray-400">Next Owner <span className="text-[10px] block">(Nächster Bearbeiter)</span></span>
+            <span className="font-medium text-gray-800 capitalize text-right">{job.next_owner}</span>
           </div>
           {job.part_receipt && (
-            <div className="flex justify-between border-b border-gray-100 pb-1">
-              <span className="text-gray-400">Teile (Parts):</span>
-              <span className="font-medium text-gray-800 capitalize">{job.part_receipt}</span>
+            <div className="flex justify-between items-center border-b border-gray-100 pb-1">
+              <span className="text-gray-400">Parts <span className="text-[10px] block">(Teile)</span></span>
+              <span className="font-medium text-gray-800 capitalize text-right">{job.part_receipt}</span>
             </div>
           )}
           {job.customer_approval && (
-            <div className="flex justify-between border-b border-gray-100 pb-1">
-              <span className="text-gray-400">Freigabe (Approval):</span>
-              <span className="font-medium text-gray-800 capitalize">{job.customer_approval}</span>
+            <div className="flex justify-between items-center border-b border-gray-100 pb-1">
+              <span className="text-gray-400">Approval <span className="text-[10px] block">(Freigabe)</span></span>
+              <span className="font-medium text-gray-800 capitalize text-right">{job.customer_approval}</span>
             </div>
           )}
         </div>

@@ -49,3 +49,4 @@ Start state: The system polls Supabase for 4 active Workshop Bays with injected 
 **Scope and effort drivers:** Mapping the hundreds of proprietary Volkswagen/Skoda event codes to our unified JSON event structure. 
 
 **Next action and owner:** Pitch the prototype to the Autohaus Frisch stakeholders and secure a 2-week pilot in a single repair bay. (Owner: Anass Kemmoune).
+
