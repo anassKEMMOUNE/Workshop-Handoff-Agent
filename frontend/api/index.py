@@ -19,19 +19,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/api/health")
+def health_check():
+    return {"status": "ok", "time": datetime.now().isoformat()}
+
 @app.get("/api/jobs")
+@app.get("/jobs")
 def get_jobs():
     return db.get_all_jobs()
 
 @app.get("/api/events")
+@app.get("/events")
 def get_events():
     return db.get_all_events()
 
 @app.get("/api/recommendations")
+@app.get("/recommendations")
 def get_recommendations(status: Optional[str] = None):
     return db.get_recommendations(status)
 
 @app.post("/api/events")
+@app.post("/events")
 def simulate_event(req: SimulateEventRequest):
     event = {
         "id": f"E-{str(uuid.uuid4())[:8]}",
@@ -46,6 +54,7 @@ def simulate_event(req: SimulateEventRequest):
     return created
 
 @app.post("/api/analyze")
+@app.post("/analyze")
 def analyze_jobs():
     try:
         recommendations = agent.run_analysis()
@@ -54,6 +63,7 @@ def analyze_jobs():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/recommendations/{id}/approve")
+@app.post("/recommendations/{id}/approve")
 def approve_recommendation(id: str):
     rec = next((r for r in db.get_recommendations() if str(r['id']) == id), None)
     if not rec:
@@ -95,6 +105,7 @@ def approve_recommendation(id: str):
     return updated_rec
 
 @app.post("/api/recommendations/{id}/reject")
+@app.post("/recommendations/{id}/reject")
 def reject_recommendation(id: str):
     rec = next((r for r in db.get_recommendations() if str(r['id']) == id), None)
     if not rec:
@@ -120,10 +131,12 @@ def reject_recommendation(id: str):
     return updated_rec
 
 @app.get("/api/action-log")
+@app.get("/action-log")
 def get_action_log():
     return db.get_action_log()
 
 @app.post("/api/reset")
+@app.post("/reset")
 def reset_simulation():
     success = db.reset_database()
     if not success:
